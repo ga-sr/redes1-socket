@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Atividade Redes 1 - Socket</title>
+  </head>
+  <body>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" />
+      <button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- carrega o socket -->
+    <script>
+      var socket = io(); // carrega a função para comunicação entre server e client
+
+      var form = document.getElementById("form");
+      var input = document.getElementById("input");
+
+      form.addEventListener("submit", function (e) {
+        // evento para enviar a mensagem escrita por meio do form
+        e.preventDefault(); // prevenir o refresh padrão após um submit, para não perder a conexão do client
+        if (input.value) {
+          socket.emit("chat message", input.value); // envia mensagem digitada por meio do socket
+          input.value = ""; // limpa campo de input
+        }
+      });
+    </script>
+  </body>
+</html>
